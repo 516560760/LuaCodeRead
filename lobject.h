@@ -347,14 +347,14 @@ typedef struct Node {
 
 typedef struct Table {
   CommonHeader;
-  lu_byte flags;  /* 1<<p means tagmethod(p) is not present */ 
-  lu_byte lsizenode;  /* log2 of size of `node' array */
-  struct Table *metatable;
-  TValue *array;  /* array part */
-  Node *node;
-  Node *lastfree;  /* any free position is before this position */
-  GCObject *gclist;
-  int sizearray;  /* size of `array' array */
+  lu_byte flags;  /* 1<<p means tagmethod(p) is not present 元方法的标记(ltm.h) */ 
+  lu_byte lsizenode;  /* log2 of size of `node' array 以2为底散列表的大小的对数值，所以散列表的拓容都是乘以2的方式 */
+  struct Table *metatable; /* 原表 */
+  TValue *array;  /* array part 指向数组部分的指针 */
+  Node *node; /* 散列桶数组起始位置 */
+  Node *lastfree;  /* any free position is before this position 散列桶数组末尾位置 */
+  GCObject *gclist;  /* gc相关的链表 */
+  int sizearray;  /* size of `array' array 数组部分的大小 */
 } Table;
 
 
